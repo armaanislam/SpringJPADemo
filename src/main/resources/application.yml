@@ -1,0 +1,35 @@
+server:
+  port: '8082'
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/schooldb
+    password: djangofrango
+  jpa:
+    hibernate:
+      ddl-auto: update 
+    show-sql: 'true'
+  config:
+    activate:
+      on-profile: dev
+welcome:
+  message: Welcome to My World!
+
+---
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans"
+

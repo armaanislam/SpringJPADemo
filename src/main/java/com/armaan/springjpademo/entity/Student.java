@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @Table(
         name = "tbl_student",
-        uniqueConstraints = @UniqueConstraint(
+        uniqueConstraints = @UniqueConstraint( // Unique constraints of a table should me defined in the Table annotation
                 name = "emailid_unique",
                 columnNames = "email_address" // Making a unique email id column with the reference of email_address column
         )
@@ -38,7 +38,7 @@ public class Student {
     private String lastName;
 
     @Column(name = "email_address", // Setting the column name to email_address
-            nullable = false
+            nullable = false // Email can not be null
     )
     private String emailId;
 

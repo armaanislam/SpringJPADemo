@@ -1,5 +1,6 @@
 package com.armaan.springjpademo.repository;
 
+import com.armaan.springjpademo.entity.Guardian;
 import com.armaan.springjpademo.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,31 @@ class StudentRepositoryTest {
                 .emailId("sam@gmail.com")
                 .firstName("Sam")
                 .lastName("Nicole")
-                .guardianName("David")
-                .guardianEmail("david@gmail.com")
-                .guardianMobile("01738493847")
+//                .guardianName("David")
+//                .guardianEmail("david@gmail.com")
+//                .guardianMobile("01738493847")
                 .build();
 
         studentRepository.save(student); // 3 queries executed; select from student_sequence; update in student_sequence; insert in schooldb.student table
+    }
+
+    @Test
+    public void saveStudentWithGuardian() {
+
+        Guardian guardian = Guardian.builder()
+                .name("John")
+                .email("john@gmail.com")
+                .mobile("01738493847")
+                .build();
+
+        Student student = Student.builder()
+                .emailId("Lincoln@gmail.com")
+                .firstName("Lincoln")
+                .lastName("Johnson")
+                .guardian(guardian)
+                .build();
+
+        studentRepository.save(student);
     }
 
     @Test

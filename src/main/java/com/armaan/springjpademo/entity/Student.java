@@ -42,9 +42,7 @@ public class Student {
     )
     private String emailId;
 
-    private String guardianName;
+    @Embedded
+    private Guardian guardian;
 
-    private String guardianEmail;
-
-    private String guardianMobile;
 }

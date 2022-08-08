@@ -2,14 +2,12 @@ package com.armaan.springjpademo.repository;
 
 import com.armaan.springjpademo.entity.Guardian;
 import com.armaan.springjpademo.entity.Student;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest // Standard Test Annotation
 // @DataJpaTest // This test annotation flashes every data after testing is finished; Use any one of them
@@ -19,6 +17,7 @@ class StudentRepositoryTest {
     private  StudentRepository studentRepository;
 
     @Test
+    @Disabled
     public void saveStudent() {
         Student student = Student.builder()
                 .emailId("sam@gmail.com")
@@ -33,6 +32,7 @@ class StudentRepositoryTest {
     }
 
     @Test
+    @Disabled
     public void saveStudentWithGuardian() {
 
         Guardian guardian = Guardian.builder()
@@ -52,9 +52,34 @@ class StudentRepositoryTest {
     }
 
     @Test
+    @Disabled
     public void printAllStudent() {
         List<Student> studentList = studentRepository.findAll();
 
         System.out.println("studentList = " + studentList);
     }
+
+    @Test
+    public void printStudentByFirstNameContaining() {
+        List<Student> studentList = studentRepository.findByFirstNameContaining("Mi");
+
+        System.out.println("studentList = " + studentList);
+    }
+
+    @Test
+    public void printStudentBasedOnGuardianName() {
+        List<Student> students = studentRepository.findByGuardianName("David");
+
+        System.out.println("students = " + students);
+    }
+
+
+    @Test
+    public void printStudentBasedOnLastNameNotNull() {
+        List<Student> studentList = studentRepository.findByLastNameNotNull();
+
+        System.out.println("studentList = " + studentList);
+    }
+
+
 }

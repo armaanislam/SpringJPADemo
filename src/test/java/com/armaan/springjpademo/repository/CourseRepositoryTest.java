@@ -1,6 +1,7 @@
 package com.armaan.springjpademo.repository;
 
 import com.armaan.springjpademo.entity.Course;
+import com.armaan.springjpademo.entity.Student;
 import com.armaan.springjpademo.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,30 @@ class CourseRepositoryTest {
         List<Course> courseList = courseRepository.findByTitleContaining("DB", firstPageTenRecords).getContent();
 
         System.out.println("courseList = " + courseList);
+    }
+
+    @Test
+    public void saveCourseWithStudentAndTeacher() {
+        Teacher teacher = Teacher.builder()
+                .firstName("Armaan")
+                .lastName("Islam")
+                .build();
+
+        Student student = Student.builder()
+                .firstName("Samiul")
+                .lastName("Islam")
+                .emailId("sammy@gmail.com")
+                .build();
+
+        Course course = Course.builder()
+                .title("AI")
+                .credit(12)
+                .teacher(teacher)
+                .build();
+
+        course.addStudents(student);
+
+        courseRepository.save(course);
     }
     
 }

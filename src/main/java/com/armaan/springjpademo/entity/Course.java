@@ -29,4 +29,9 @@ public class Course {
     private String title;
 
     private Integer credit;
+
+    @OneToOne( // Bi-directional mapping; We can not use joined columns here
+            mappedBy = "course"
+    )
+    private CourseMaterial courseMaterial;
 }

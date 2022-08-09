@@ -3,6 +3,7 @@ package com.armaan.springjpademo.repository;
 import com.armaan.springjpademo.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Student getStudentByEmailAddress(String emailId);
 
     // JPQL Query
-    @Query("SELECT s.firstName FROM Student  s WHERE s.emailId = ?1")
+    @Query("SELECT s.firstName FROM Student s WHERE s.emailId = ?1")
     String getStudentFirstNameByEmailAddress(String emailId);
 
     // Native Query
@@ -34,5 +35,12 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             nativeQuery = true
     )
     Student getStudentByEmailAddressNative(String emailId);
+
+    // Native Named Param Query
+    @Query(
+            value = "SELECT * FROM tbl_student s WHERE s.email_address = :emailId",
+            nativeQuery = true
+    )
+    Student getStudentByEmailAddressNativeNamedParam(@Param("emailId") String emailId);
 
 }
